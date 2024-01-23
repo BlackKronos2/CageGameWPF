@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace CageGame
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class GameWindow : Window
     {
         private DispatcherTimer _timer;
         private DispatcherTimer _secTimer;
 
         private GameModel _gameModel;
-        private GameWPFPresenter _gamePresenter;
 
-        public GameWindow(int entitiesCount, float entitiesSpeed, Vector2 mapSize)
+        public GameWindow(GameModel gameModel)
         {
             InitializeComponent();
+
+            var mapSize = gameModel.MapSize;
             Resizing(mapSize.X, mapSize.Y);
 
             _timer = new DispatcherTimer();
@@ -35,8 +31,8 @@ namespace CageGame
             Map.MouseRightButtonDown += new MouseButtonEventHandler(MouseButUp);
             Map.MouseMove += new MouseEventHandler(MouseMove);
 
-            _gameModel = new GameModel(entitiesCount, entitiesSpeed, mapSize);
-            _gamePresenter = new GameWPFPresenter(_gameModel, Map, ObjectsCount, TimerText);
+            _gameModel = gameModel;
+			DataContext = new GameWPFPresenter(_gameModel, Map);
 
             GameEvents.OnGameEnd += () => Pause();
             GameEvents.OnGameEnd += () => this.Hide();
@@ -45,19 +41,25 @@ namespace CageGame
             _secTimer.Start();
         }
 
-        private void Resizing(double width, double height)
+        private GameWPFPresenter? Presenter => DataContext as GameWPFPresenter;
+
+		private void Resizing(double width, double height)
         {
             Map.Width = width;
             Map.Height = height;
 
             MapUI.Width = width;
             MapUI.Height = height + (TimerText.Height * 2f);
-        }
+
+            this.Width = width + 70;
+            this.Height = height + 80;
+
+		}
 
         private void TimerUpdate(object sender, EventArgs e)
         {
             Map.Children.Clear();
-            _gamePresenter.Update();
+            Presenter.Update();
         }
 
         private void SecTimerUpdate(object sender, EventArgs e) => _gameModel.TimerPlus();
@@ -68,19 +70,14 @@ namespace CageGame
             _timer.Stop();
         }
 
-        private void MouseButDown(object sender, MouseEventArgs e)
-            => _gamePresenter.StartDrawLine();
-
-        private void MouseButUp(object sender, MouseEventArgs e)
-            => _gamePresenter.StopDrawLine();
-
-        private void MouseMove(object sender, MouseEventArgs e)
-            => _gamePresenter.OnDrawLine();
+        private void MouseButDown(object sender, MouseEventArgs e) => Presenter.StartDrawLine();
+        private void MouseButUp(object sender, MouseEventArgs e) => Presenter.StopDrawLine();
+        private void MouseMove(object sender, MouseEventArgs e) => Presenter.OnDrawLine();
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (!_gamePresenter.isGameEnd)
-                _gamePresenter.OpenMenu();
+            if (!Presenter.IsGameEnd)
+                Presenter.OpenMenu();
         }
 
     }

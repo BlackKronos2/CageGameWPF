@@ -64,7 +64,6 @@ namespace CageGame
             Scale = scale;
         }
 
-        public void Move(Vector2 MoveVector) =>
-            Position += MoveVector;
+        public void Move(Vector2 MoveVector) => Position += MoveVector;
     }
 }

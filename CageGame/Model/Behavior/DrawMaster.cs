@@ -131,24 +131,23 @@ namespace CageGame
             if (ActiveLine.Init && _isMouseDown)
             {
                 _drawLinePos1 = ActiveLine.Point1;
+                _drawLinePos2 = ActiveLine.Point2;
 
                 _drawingLines.Add(ActiveLine);
 
                 int drawLinesCount = _drawingLines.Count;
 
                 if (drawLinesCount == 1 || drawLinesCount == 2)
-                {
                     BorderCorrection();
-                }
 
                 if (drawLinesCount == 4)
-                {
                     CageDrawEnd();
-                }
+
             }
             else
             {
                 _drawLinePos1 = mousePosition;
+                _drawLinePos2 = mousePosition;
             }
         }
 

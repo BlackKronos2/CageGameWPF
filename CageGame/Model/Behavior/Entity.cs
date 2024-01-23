@@ -18,7 +18,9 @@ namespace CageGame
             new Vector2(1,-1),
         };
 
-        public Entity(Vector2 position, Vector2 scale, double speed,Vector2 mapSize):base(position, scale)
+        public Vector2 FuturePosition => Position + _moveVector * _speed;
+
+		public Entity(Vector2 position, Vector2 scale, double speed,Vector2 mapSize):base(position, scale)
         {
             _mapMaxBorder = mapSize;
             _speed = speed;
@@ -29,11 +31,6 @@ namespace CageGame
 
         public void Update()
         {
-            Vector2 FuturePosition = Position + _moveVector * _speed;
-
-            if (CollisionMaster.GetInstance().IntersectionDrawingLines(Position, FuturePosition, Scale))
-                GameEvents.SendCageFail();
-
             if (FuturePosition.Y + (Scale.Y / 2) > _mapMaxBorder.Y || FuturePosition.Y - (Scale.Y / 2) < 0)
                 _moveVector *= new Vector2(1, -1);
 

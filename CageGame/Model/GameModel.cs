@@ -8,12 +8,14 @@ namespace CageGame
     public sealed class GameModel
     {
         /// <summary> В миллисекундах </summary>
-        public const int FrameLength = 15;
+        public const int FrameLength = 25;
         /// <summary> Отступ от границы для появления объектов </summary>
         private const double SpawnBorders = 15;
 
         private int _timer;
         private bool _endGameFlag;
+
+        private Vector2 _mapSize;
 
         public DrawMaster DrawMaster { get; private set; }
 
@@ -24,13 +26,16 @@ namespace CageGame
 
         public float Time => _timer;
         public void TimerPlus() => _timer++;
+        public Vector2 MapSize => _mapSize;
 
         public GameModel(int entitiesCount, float entitiesSpeed, Vector2 mapSize)
         {
             _timer = 0;
             _endGameFlag = false;
 
-            DrawLines = new List<Border>(0);
+            _mapSize = mapSize;
+
+			DrawLines = new List<Border>(0);
             CageLines = new List<Border>(0);
 
             CollisionMaster.GetInstance().ActiveBorders = DrawLines;
@@ -71,24 +76,26 @@ namespace CageGame
         }
         private void GameEndTest()
         {
-            if (Entities.Count == 0)
-            {
-                if (_endGameFlag)
-                    return;
+            if (Entities.Count != 0)
+                return;
 
-                GameEvents.SendGameEnd();
-                _endGameFlag = true;
-            }
-        }
+			if (_endGameFlag)
+				return;
+
+			GameEvents.SendGameEnd();
+			_endGameFlag = true;
+		}
 
         public void UpdateTick()
         {
             foreach (Entity entity in Entities)
-            {
                 entity.Update();
-            }
-            DrawMaster.Draw();
-        }
+
+			if (CollisionMaster.GetInstance().IntersectionDrawingLines(Entities))
+				GameEvents.SendCageFail();
+
+			DrawMaster.Draw();
+		}
         public void DrawLineStart(Vector2 position) => DrawMaster.OnDrawLineStart(position);
         public void DrawLineStop() => DrawMaster.OnDrawLineStop(); 
         public void OnDrawLine(Vector2 position) => DrawMaster.OnDrawLine(position);

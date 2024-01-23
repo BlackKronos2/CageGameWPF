@@ -9,8 +9,8 @@
 
     <Grid>
         <Canvas x:Name="MapUI" Height="532" Width="850" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="94" Canvas.Top="85">
-            <Label x:Name="ObjectsCount" Content="Осталось объектов: 0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Width="214" IsEnabled="False" Background="Black" Foreground="White" Height="34"/>
-            <Label x:Name="TimerText" Content="Осталось объектов: 0" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Width="214" IsEnabled="False" Background="Black" Foreground="White" Height="34" Canvas.Left="214"/>
+			<Label x:Name="ObjectsCount" Content="{Binding Counter}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Width="214" IsEnabled="False" Background="Black" Foreground="White" Height="34"/>
+			<Label x:Name="TimerText" Content="{Binding Timer}" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Top" Width="214" IsEnabled="False" Background="Black" Foreground="White" Height="34" Canvas.Left="214"/>
         </Canvas>
         <Canvas x:Name="Map" Height="466.9" Width="850" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black" Canvas.Left="94" Canvas.Top="85"/>
     </Grid>

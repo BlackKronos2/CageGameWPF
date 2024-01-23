@@ -75,7 +75,31 @@ namespace CageGame
             return false;
         }
 
-        public bool IntersectionDrawingLines(Vector2 position, Vector2 futurePos, Vector2 scale)
-            => (IntersectionBorder(DrawingLine, position, futurePos, scale));
+        public bool IntersectionDrawingLines(List<Entity> entities)
+        {
+            foreach (Entity entity in entities)
+            {
+                foreach (Border border in ActiveBorders)
+                {
+					if (IntersectionBorder(border, entity.Position, entity.FuturePosition, entity.Scale))
+						return true;
+				}
+
+                if(DrawingLine.Init && IntersectionBorder(DrawingLine, entity.Position, entity.FuturePosition, entity.Scale))
+					return true;
+			}
+
+
+	    	foreach (Border border in ActiveBorders)
+            {
+				foreach (Entity entity in entities)
+				{
+                    if(IntersectionBorder(border, entity.Position, entity.FuturePosition, entity.Scale))
+                        return true;
+				}
+			}
+
+            return false;
+        }
     }
 }

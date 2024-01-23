@@ -6,18 +6,26 @@
         xmlns:local="clr-namespace:CageGame"
         mc:Ignorable="d"
         Title="Меню" Height="490" Width="438" Closed="Window_Closed">
-    <Grid>
-        <Canvas x:Name="Fone" Height="454" Width="384" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black"/>
 
-        <Slider x:Name="SpeedSlider" Canvas.Left="87" Canvas.Top="275" Width="210" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,349,0,0" SmallChange="1" ValueChanged="SpeedSlider_ValueChanged"/>
-        <Label x:Name="CountText" Content="Количество объектов: 10" Canvas.Left="125" Canvas.Top="155" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,251,0,0"/>
-        <Slider x:Name="CountSlider" Canvas.Left="87" Canvas.Top="195" Width="210" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,282,0,0" SmallChange="1" ValueChanged="CountSlider_ValueChanged"/>
-        <Label Content="Cage Game" Canvas.Left="128" Canvas.Top="36" Foreground="White" Height="44" Width="112" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,38,0,0"/>
-        <Button Content="Начать игру" Canvas.Left="121" Canvas.Top="121" Height="36" Width="126" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,111,0,0" Click="Button_Click"/>
-        <Button Content="Выход" Canvas.Left="121" Canvas.Top="309" Height="37" Width="126" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,388,0,0" Click="Button_Click_1"/>
-        <Label x:Name="SpeedText" Content="Скорость объектов: 10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,318,0,0"/>
-        <Slider x:Name="MapSizeSlider" Width="210" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,219,0,0" SmallChange="1" ValueChanged="MapSizeSlider_ValueChanged"/>
-        <Label x:Name="MapSizeText" Content="Размер карты: 10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,188,0,0"/>
+	<Window.DataContext>
+		<local:MenuPresenter/>
+	</Window.DataContext>
 
-    </Grid>
+	<Grid>
+		<Canvas x:Name="Fone" Height="454" Width="384" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black"/>
+
+		<Label Content="Cage Game" Canvas.Left="128" Canvas.Top="36" Foreground="White" Height="44" Width="112" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,38,0,0"/>
+
+		<Label x:Name="CountText" Content="{Binding Count}" Canvas.Left="125" Canvas.Top="155" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,251,0,0"/>
+		<Label x:Name="SpeedText" Content="{Binding Speed}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,318,0,0"/>
+		<Label x:Name="MapSizeText" Content="{Binding MapSize}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,188,0,0"/>
+
+		<Button Content="Начать игру" Canvas.Left="121" Canvas.Top="121" Height="36" Width="126" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,111,0,0" Command="{Binding StartGameCommand}"/>
+		<Button Content="Выход" Canvas.Left="121" Canvas.Top="309" Height="37" Width="126" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,388,0,0" Click="Button_Click_1"/>
+
+		<Slider x:Name="MapSizeSlider" Width="210" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,219,0,0" SmallChange="1" Value="{Binding MapSizeValue, Mode=TwoWay}" Maximum="{Binding MapMaxSize}"/>
+		<Slider x:Name="CountSlider" Canvas.Left="87" Canvas.Top="195" Width="210" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,282,0,0" SmallChange="1" Value="{Binding CountValue, Mode=TwoWay}" Maximum="{Binding MaxCount}"/>
+		<Slider x:Name="SpeedSlider" Canvas.Left="87" Canvas.Top="275" Width="210" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,349,0,0" SmallChange="1" Value="{Binding SpeedValue, Mode=TwoWay}" Maximum="{Binding MaxSpeed}"/>
+
+	</Grid>
 </Window>

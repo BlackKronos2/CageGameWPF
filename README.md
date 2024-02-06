@@ -12,8 +12,8 @@
 <h21>🛠️ Запуск</h21>
 <p>    CageGameWPF\CageGame\bin\Debug\net6.0-windows\CageGame.exe</p>
 
-![Изображение](https://github.com/BlackKronos2/SQL_MenuBuilder/blob/main/Images/1.jpg)
-![Изображение](https://github.com/BlackKronos2/SQL_MenuBuilder/blob/main/Images/2.jpg)
-![Изображение](https://github.com/BlackKronos2/SQL_MenuBuilder/blob/main/Images/3.jpg)
-![Изображение](https://github.com/BlackKronos2/SQL_MenuBuilder/blob/main/Images/4.jpg)
-![Изображение](https://github.com/BlackKronos2/SQL_MenuBuilder/blob/main/Images/5.jpg)
+![Изображение](https://github.com/BlackKronos2/CageGameWPF/blob/main/Images/1.jpg)
+![Изображение](https://github.com/BlackKronos2/CageGameWPF/blob/main/Images/2.jpg)
+![Изображение](https://github.com/BlackKronos2/CageGameWPF/blob/main/Images/3.jpg)
+![Изображение](https://github.com/BlackKronos2/CageGameWPF/blob/main/Images/4.jpg)
+![Изображение](https://github.com/BlackKronos2/CageGameWPF/blob/main/Images/5.jpg)
